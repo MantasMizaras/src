@@ -5,5 +5,16 @@ const cors = require('cors');
 const app = express();
 const { PORT } = require('./config');
 
+app.use(cors());
 app.use(morgan('dev'));
-app.listen(PORT, () => console.log('server is running'));
+app.use(express.json());
+
+app.get('/', async (req, res) => {
+  res.json('Hello');
+});
+
+app.all('*', (req, res) => {
+  res.status(404).json({ error: 'Page not found' });
+});
+
+app.listen(PORT, () => console.log('server is running', PORT));
