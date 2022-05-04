@@ -1,13 +1,16 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-// const mysql = require('mysql2/promise');
 const app = express();
 const { PORT } = require('./config');
+const petsRoutes = require('./routes/petsRoutes');
 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+
+// routes
+app.use('/api', petsRoutes);
 
 app.get('/', async (req, res) => {
   res.json('Hello');
